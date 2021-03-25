@@ -13,20 +13,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(),
+      home: MyHomePage(key: Key("")),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+  MyHomePage({required Key key}) : super(key: key);
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  Animation _heartAnimation;
-  AnimationController _heartAnimationController;
 
   final int _cursorCost = 8;
   final int _multiplyCost = 12;
@@ -93,20 +91,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _initGame();
-
-    _heartAnimationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 2000));
-
-    _heartAnimation = Tween(begin: 210.0, end: 240.0).animate(CurvedAnimation(
-        curve: Curves.bounceOut, parent: _heartAnimationController));
-
-    _heartAnimationController.addStatusListener((AnimationStatus status) {
-      if (status == AnimationStatus.completed) {
-        _heartAnimationController.repeat();
-      }
-    });
-
-    _heartAnimationController.forward();
   }
 
   void _initGame() async {
@@ -158,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(40.0),
-                child: FlatButton(
+                child: TextButton(
                     onPressed: _incrementCounter,
                     child: Image.asset('images/cookie.png')),
               ),
@@ -174,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     child: Column(
                       children: [
                         Expanded(
-                          child: FlatButton(
+                          child: TextButton(
                               onPressed: _incrementCursor,
                               child: Image.asset('images/mouse-pointer.png')),
                         ),
@@ -196,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     child: Column(
                       children: [
                         Expanded(
-                          child: FlatButton(
+                          child: TextButton(
                               onPressed: _incrementMultiple,
                               child: Image.asset('images/cursor.png')),
                         ),
